@@ -1,8 +1,7 @@
 // Inventory system
 // Allows player to store ores
 
-using System.Collections;
-using System.Collections.Generic;
+
 using UnityEngine;
 using TMPro;
 
@@ -10,6 +9,7 @@ public class PlayerInventory : GoldInventory
 {
     public GoldSpawner spawner;
     [SerializeField] TMP_Text counter;
+    [SerializeField] AudioClip pickupSound;
 
     int _storedOre = 0;
     public override int storedOre {
@@ -26,5 +26,6 @@ public class PlayerInventory : GoldInventory
 
     public override void AddOre(int amount) {
         storedOre += amount;
+        PlayerData.audiosource.PlayOneShot(pickupSound, PlayerData.maxSFXVolume);
     }
 }

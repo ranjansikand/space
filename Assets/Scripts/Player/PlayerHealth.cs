@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class PlayerHealth : Health
 {
+    [SerializeField] AudioClip hurtSound;
     [SerializeField] ParticleSystem hurtEffect;
     [SerializeField] Screenshake screenshake;
     int hurtHash;
@@ -21,7 +22,10 @@ public class PlayerHealth : Health
 
         PlayerData.animator.SetTrigger(hurtHash);
         hurtEffect.Play();
-        screenshake.Play(Mathf.Clamp01(damage / 10f));
+
+        float scaledDamage = Mathf.Clamp01(damage / 10f);
+        screenshake.Play(scaledDamage);
+        PlayerData.audiosource.PlayOneShot(hurtSound, scaledDamage * PlayerData.maxSFXVolume);
 
         if (PlayerData.inventory.storedOre > 0) {
             int goldLost = (int)Mathf.Min(PlayerData.inventory.storedOre, damage);

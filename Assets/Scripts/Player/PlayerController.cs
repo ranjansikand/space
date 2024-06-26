@@ -1,7 +1,6 @@
 // Script for the player controls
 
-using System.Collections;
-using System.Collections.Generic;
+
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -9,10 +8,24 @@ public class PlayerController : MonoBehaviour
 {
     Input input;
 
-    [SerializeField] float rotationSpeed = 5f;
-    [SerializeField] ParticleSystem booster;
+
+    [Header("Booster")]
+    
+    [SerializeField] AudioSource boosterAudio;
+    [SerializeField] ParticleSystem boosterEffect;
+    [SerializeField] AudioClip boosterSound, boosterStop;
     bool boosterOn = false;
+
+
+    [Header("Rotation")]
+
+    [SerializeField] float rotationSpeed = 5f;
     float inputRotation = 0;
+
+
+    [Header("Interaction")]
+
+    [SerializeField] AudioClip interactSound;
     
 
     private void Awake() {
@@ -51,12 +64,19 @@ public class PlayerController : MonoBehaviour
 
     private void OnPropelInput(InputAction.CallbackContext context) {
         boosterOn = true;
-        booster.Play();
+        boosterEffect.Play();
+
+        boosterAudio.volume = PlayerData.maxSFXVolume;
+        boosterAudio.clip = boosterSound;
+        boosterAudio.Play();
     }
 
     private void OnPropelReleased(InputAction.CallbackContext context) {
         boosterOn = false;
-        booster.Stop();
+        boosterEffect.Stop();
+
+        boosterAudio.Stop();
+        // PlayerData.audiosource.PlayOneShot(boosterStop, PlayerData.maxSFXVolume);
     }
 
     private void OnRotateInput(InputAction.CallbackContext context) {
@@ -78,5 +98,7 @@ public class PlayerController : MonoBehaviour
                 }
             }
         }
+        
+        PlayerData.audiosource.PlayOneShot(interactSound, PlayerData.maxSFXVolume);
     }
 }
