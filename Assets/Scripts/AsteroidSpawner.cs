@@ -30,6 +30,8 @@ public class AsteroidSpawner : MonoBehaviour
             GoldAsteroid newGold = Instantiate(
                 goldAsteroids[Random.Range(0, goldAsteroids.Length)], 
                 spawnPos, Quaternion.identity, transform);
+
+            newGold.Setup(this);
             golden.Add(newGold);
         }
 
@@ -39,5 +41,10 @@ public class AsteroidSpawner : MonoBehaviour
                 asteroids[Random.Range(0, goldAsteroids.Length)], 
                 spawnPos, Quaternion.identity, transform);
         }
+    }
+
+    public void Relocate(GoldAsteroid asteroid) {
+        asteroid.transform.position = Random.insideUnitCircle * spawnRadius;
+        asteroid.gameObject.SetActive(true);
     }
 }

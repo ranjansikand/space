@@ -10,6 +10,7 @@ public class PlayerInventory : GoldInventory
     public GoldSpawner spawner;
     [SerializeField] TMP_Text counter;
     [SerializeField] AudioClip pickupSound;
+    [SerializeField] Screenshake screenshake;
 
     int _storedOre = 0;
     public override int storedOre {
@@ -27,5 +28,6 @@ public class PlayerInventory : GoldInventory
     public override void AddOre(int amount) {
         storedOre += amount;
         PlayerData.audiosource.PlayOneShot(pickupSound, PlayerData.maxSFXVolume);
+        screenshake.Play(0.15f);
     }
 }

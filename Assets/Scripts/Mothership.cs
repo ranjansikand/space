@@ -7,8 +7,8 @@ using TMPro;
 
 public class Mothership : GoldInventory, IInteractable
 {
-    [SerializeField] AudioSource audioSource;
-    [SerializeField] AudioClip goldGainedSound;
+    [SerializeField] public AudioSource audioSource;
+    [SerializeField] AudioClip goldGainedSound, goldLostSound;
     [SerializeField] GoldSpawner spawner;
 
     // Ore storage
@@ -19,7 +19,8 @@ public class Mothership : GoldInventory, IInteractable
     public override int storedOre {
         get { return _storedOre; }
         set {
-            if (value > _storedOre) audioSource.PlayOneShot(goldGainedSound, 0.4f); 
+            if (value > _storedOre) audioSource.PlayOneShot(goldGainedSound, PlayerData.maxSFXVolume); 
+            else audioSource.PlayOneShot(goldLostSound, PlayerData.maxSFXVolume);
             _storedOre = value;
             counter.text = _storedOre.ToString();
         }

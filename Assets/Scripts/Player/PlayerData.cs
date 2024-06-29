@@ -38,6 +38,7 @@ public class PlayerData : MonoBehaviour
 
     private void Start() {
         StartCoroutine(UpdateCoordinates());
+        maxSFXVolume = PlayerPrefs.GetFloat("sfx", 0.5f);
     }
 
     private IEnumerator UpdateCoordinates() {

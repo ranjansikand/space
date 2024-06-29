@@ -7,6 +7,7 @@ public class PlayerHealth : Health
     [SerializeField] AudioClip hurtSound;
     [SerializeField] ParticleSystem hurtEffect;
     [SerializeField] Screenshake screenshake;
+    
     int hurtHash;
 
     private void Awake() {

@@ -10,15 +10,14 @@ public class Screenshake : MonoBehaviour
     [SerializeField] CinemachineImpulseListener vcamListener;
     public UnityEvent smallShake;
 
+    public static float shakeScaling = 1f;
 
-
-    /**** Eventual settings menu ****/
-    // private void OnEnable() { Data.screenshakeChanged += UpdateScreenshake; }
-    // private void OnDisable() { Data.screenshakeChanged -= UpdateScreenshake; }
-    // private void UpdateScreenshake() { vcamListener.m_Gain = Data.Screenshake; }
+    private void Start() {
+        shakeScaling = PlayerPrefs.GetFloat("shake", 1f);
+    }
 
     public void Play(float scale) {
-        vcamListener.m_Gain = scale;
+        vcamListener.m_Gain = scale * shakeScaling;
         smallShake.Invoke();
     }
 }

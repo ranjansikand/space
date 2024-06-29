@@ -66,7 +66,7 @@ public class PlayerController : MonoBehaviour
         boosterOn = true;
         boosterEffect.Play();
 
-        boosterAudio.volume = PlayerData.maxSFXVolume;
+        boosterAudio.volume = PlayerData.maxSFXVolume / 2;
         boosterAudio.clip = boosterSound;
         boosterAudio.Play();
     }
